@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'multi_json'
+require 'twitter'
+require 'yaml'
+require_relative 'server'
+require_relative 'retweeter'
+
+config = YAML.load(File.read('config.yml'))
+twitter = Twitter::Client.new(Hash[config.map { |k, v| [k.to_sym, v] }])
+retweeter = Retweeter.new(twitter)
+
+command, filename = ARGV
+
+case command
+when nil
+  puts "Usage:"
+  puts " bot retweet - retweet matching tweets from bot's timeline"
+  puts " bot fetch [file] - save last 3 months of tweets from followed users to a json file (or print to stdout)"
+  puts " bot cached [file] - start web UI with data from a json file or stdin"
+  puts " bot live - start web UI with data loaded on demand"
+
+when 'retweet'
+  retweeter.retweet_new_tweets
+
+when 'fetch'
+  json = retweeter.last_three_months_json(ENV['EXTRA_USERS'])
+  data = MultiJson.dump(json)
+  filename ? File.write(filename, data) : puts(data)
+
+when 'cached'
+  data = filename ? File.read(filename) : STDIN.read
+  json = MultiJson.load(data, :symbolize_keys => true)
+  Server.start(retweeter, json)
+
+when 'live'
+  Server.start(retweeter)
+
+else
+  raise "Unknown command #{command}"
+
+end

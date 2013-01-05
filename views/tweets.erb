@@ -1,0 +1,33 @@
+<p>
+  <% if user_data %>
+    Followers count: <strong><%= user_data.followers_count %></strong> |
+    Tweets count: <strong><%= user_data.statuses_count %></strong> |
+    Awesomeness threshold: <strong><%= awesomeness_threshold(user_data) %></strong> |
+  <% end %>
+
+  Matched tweets: <strong><%= tweets.select { |t| interesting_tweet?(t) }.length %>/<%= tweets.length %></strong> |
+  Sort by: <a href="?sort=time">time</a> / <a href="?sort=score">score</a>
+</p>
+
+<hr>
+
+<% tweets.each do |t| %>
+  <div class="tweet <%= 'matched' if interesting_tweet?(t) %>">
+    <h2>
+      <a href="http://twitter.com/<%= t.user.screen_name %>">
+        <%= t.user.name %>
+        <span class="login">(@<%= t.user.screen_name %>)</span>
+      </a>
+    </h2>
+
+    <p><%= highlight(t.text) %></p>
+
+    <p class="info">
+      <%= t.retweet_count + t.favoriters_count.to_i %> reaction(s) =
+      <%= t.retweet_count %> retweet(s) +
+      <%= t.attrs[:favoriters_count] || "?" %> favorite(s) /
+      <%= t.created_at %> /
+      <a href="http://twitter.com/<%= t.user.screen_name %>/status/<%= t.id %>">link</a>
+    </p>
+  </div>
+<% end %>

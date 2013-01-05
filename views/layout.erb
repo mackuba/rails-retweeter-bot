@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <style type='text/css'>
+    body { width: 800px; margin: 20px auto; }
+    a { color: #3030d0; }
+    h2, h2 a { color: #333; font-size: 100%; }
+    h2 span { color: #666; font-weight: normal; }
+    .tweet { border-bottom: 1px solid #666; }
+    .tweet.matched { background-color: #ffffc0; }
+    .tweet .info, .tweet .info a { font-size: 13px; color: #666; }
+    .tweet mark { color: #c00000; font-weight: bold; background: inherit; }
+  </style>
+</head>
+<body>
+  <p>
+    <form onsubmit="location.href = '/user/' + this.search.value; return false;">
+      <% if live? %>
+        <a href="/">Home</a>
+      <% else %>
+        <a href="/">All</a>
+      <% end %>
+
+      <% users.each do |u| %>
+      | <a href="/user/<%= u %>"><%= u %></a>
+      <% end %>
+
+      <% if live? %>
+        | <input type="search" name="search">
+      <% end %>
+    </form>
+  </p>
+
+  <hr>
+
+  <%= yield %>
+</body>
+</html>
