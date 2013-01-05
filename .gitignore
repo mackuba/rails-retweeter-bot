@@ -1,4 +1,5 @@
 .bundle
 config.yml
+config/deploy.rb
 *.json
 stuff
