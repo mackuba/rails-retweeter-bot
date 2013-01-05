@@ -7,7 +7,7 @@ require 'yaml'
 require_relative 'server'
 require_relative 'retweeter'
 
-config = YAML.load(File.read('config.yml'))
+config = YAML.load(File.read('config/config.yml'))
 twitter = Twitter::Client.new(Hash[config.map { |k, v| [k.to_sym, v] }])
 retweeter = Retweeter.new(twitter)
 

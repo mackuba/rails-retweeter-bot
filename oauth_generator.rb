@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'oauth'
 
-config = YAML.load(File.read('config.yml'))
+config = YAML.load(File.read('config/config.yml'))
 
 oauth = OAuth::Consumer.new(
   config['consumer_key'],
