@@ -8,9 +8,15 @@ class Retweeter
   end
 
   def retweet_new_tweets
+    puts "Retweeting..."
     tweets = load_home_timeline
-    matching = tweets.select { |t| interesting_tweet?(t) && !t.retweeted }
-    matching.each { |t| retweet(t) }
+    tweets.select { |t| retweetable_tweet?(t) }.each { |t| retweet(t) }
+  end
+
+  def print_retweetable_tweets
+    puts "./bot retweet would retweet these tweets:"
+    tweets = load_home_timeline
+    tweets.select { |t| retweetable_tweet?(t) }.each { |t| p t }
   end
 
   def last_three_months_json(extra_users = nil)
@@ -72,6 +78,10 @@ class Retweeter
 
   def interesting_tweet?(tweet)
     matches_keywords?(tweet) && tweet_activity_count(tweet) >= awesomeness_threshold(tweet.user)
+  end
+
+  def retweetable_tweet?(tweet)
+    !tweet.retweeted && interesting_tweet?(tweet)
   end
 
   def matches_keywords?(tweet)

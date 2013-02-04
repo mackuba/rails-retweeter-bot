@@ -17,12 +17,16 @@ case command
 when nil
   puts "Usage:"
   puts " bot retweet - retweet matching tweets from bot's timeline"
+  puts " bot test-retweet - see what would be retweeted"
   puts " bot fetch [file] - save last 3 months of tweets from followed users to a json file (or print to stdout)"
   puts " bot cached [file] - start web UI with data from a json file or stdin"
   puts " bot live - start web UI with data loaded on demand"
 
 when 'retweet'
   retweeter.retweet_new_tweets
+
+when 'test-retweet'
+  retweeter.print_retweetable_tweets
 
 when 'fetch'
   json = retweeter.last_three_months_json(ENV['EXTRA_USERS'])
