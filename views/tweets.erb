@@ -28,6 +28,9 @@
       <%= t.attrs[:favoriters_count] || "?" %> favorite(s) /
       <%= t.created_at %> /
       <a href="http://twitter.com/<%= t.user.screen_name %>/status/<%= t.id %>">link</a>
+      <% if t.retweeted %>
+        / <span class="icon-retweet"></span>
+      <% end %>
     </p>
   </div>
 <% end %>
