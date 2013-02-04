@@ -29,7 +29,10 @@ when 'test-retweet'
   retweeter.print_retweetable_tweets
 
 when 'fetch'
-  json = retweeter.last_three_months_json(ENV['EXTRA_USERS'])
+  json = retweeter.fetch_all_users_json(
+    :extra_users => ENV['EXTRA_USERS'] && ENV['EXTRA_USERS'].split(','),
+    :days => ENV['DAYS'] && ENV['DAYS'].to_i
+  )
   data = MultiJson.dump(json)
   filename ? File.write(filename, data) : puts(data)
 

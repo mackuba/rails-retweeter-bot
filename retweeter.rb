@@ -1,7 +1,8 @@
 class Retweeter
   # below this retweet count we don't even check favorites count to save API calls
   MIN_RETWEET_COUNT = 5
-  THREE_MONTHS = 90 * 86400
+  DAY = 86400
+  THREE_MONTHS = 90 * DAY
 
   def initialize(twitter)
     @twitter = twitter
@@ -19,11 +20,12 @@ class Retweeter
     tweets.select { |t| retweetable_tweet?(t) }.each { |t| p t }
   end
 
-  def last_three_months_json(extra_users = nil)
+  def fetch_all_users_json(options = {})
     users = followed_users
-    users |= extra_users if extra_users
+    users |= options[:extra_users] if options[:extra_users]
+    days = options[:days]
 
-    tweets_json = users.map { |u| load_user_timeline(u).map(&:attrs) }
+    tweets_json = users.map { |u| load_user_timeline(u, days).map(&:attrs) }
 
     Hash[users.zip(tweets_json)]
   end
@@ -36,13 +38,14 @@ class Retweeter
     with_activity_data(load_timeline(:home_timeline))
   end
 
-  def load_user_timeline(login)
-    three_months_ago = Time.now - THREE_MONTHS
+  def load_user_timeline(login, days = nil)
+    interval = days ? (days * DAY) : THREE_MONTHS
+    starting_date = Time.now - interval
 
     $stderr.print "@#{login} ."
     tweets = load_timeline(:user_timeline, login)
 
-    while tweets.last.created_at > three_months_ago
+    while tweets.last.created_at > starting_date
       $stderr.print '.'
       batch = load_timeline(:user_timeline, login, :max_id => tweets.last.id - 1)
       break if batch.empty?
@@ -50,7 +53,7 @@ class Retweeter
     end
 
     $stderr.print '*'
-    tweets = with_activity_data(tweets.reject { |t| t.created_at < three_months_ago })
+    tweets = with_activity_data(tweets.reject { |t| t.created_at < starting_date })
 
     $stderr.puts
     tweets
