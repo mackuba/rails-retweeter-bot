@@ -46,6 +46,10 @@ class Server < Sinatra::Base
       @@retweeter.interesting_tweet?(tweet)
     end
 
+    def below_threshold?(tweet)
+      @@retweeter.tweet_activity_count(tweet) < @@retweeter.awesomeness_threshold(tweet.user)
+    end
+
     def awesomeness_threshold(user)
       sprintf("%.2f", @@retweeter.awesomeness_threshold(user))
     end

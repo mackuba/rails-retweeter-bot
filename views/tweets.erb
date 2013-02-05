@@ -12,7 +12,10 @@
 <hr>
 
 <% tweets.each do |t| %>
-  <div class="tweet <%= 'matched' if interesting_tweet?(t) %>">
+  <div class="tweet
+    <%= 'matched' if interesting_tweet?(t) %>
+    <%= 'below-threshold' if @sort == 'score' && below_threshold?(t) %>">
+
     <h2>
       <a href="http://twitter.com/<%= t.user.screen_name %>">
         <%= t.user.name %>

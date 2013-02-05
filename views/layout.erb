@@ -14,6 +14,8 @@
     .tweet.matched { background-color: #ffffc0; }
     .tweet .info, .tweet .info a { font-size: 13px; color: #666; }
     .tweet mark { color: #c00000; font-weight: bold; background: inherit; }
+    .tweet.below-threshold { margin-top: 10px; border-top: 4px solid black; }
+    .tweet.below-threshold ~ .tweet.below-threshold { margin-top: 0px; border-top: none; }
   </style>
 </head>
 <body>
