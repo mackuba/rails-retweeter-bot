@@ -23,7 +23,7 @@
       </a>
     </h2>
 
-    <p><%= highlight(t.text) %></p>
+    <p><%= highlight(expanded_text(t)) %></p>
 
     <p class="info">
       <%= t.retweet_count + t.favoriters_count.to_i %> reaction(s) =

@@ -88,7 +88,14 @@ class Retweeter
   end
 
   def matches_keywords?(tweet)
-    keywords_whitelist.any? { |k| tweet.text =~ k }
+    keywords_whitelist.any? { |k| expanded_text(tweet) =~ k }
+  end
+
+  def expanded_text(tweet)
+    tweet.urls.inject(tweet.text.clone) do |text, entity|
+      text[entity.url] = entity.display_url
+      text
+    end
   end
 
   def keywords_whitelist

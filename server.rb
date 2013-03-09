@@ -50,6 +50,10 @@ class Server < Sinatra::Base
       @@retweeter.tweet_activity_count(tweet) < @@retweeter.awesomeness_threshold(tweet.user)
     end
 
+    def expanded_text(tweet)
+      @@retweeter.expanded_text(tweet)
+    end
+
     def awesomeness_threshold(user)
       sprintf("%.2f", @@retweeter.awesomeness_threshold(user))
     end
