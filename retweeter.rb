@@ -99,7 +99,15 @@ class Retweeter
   end
 
   def keywords_whitelist
-    @whitelist ||= File.readlines('keywords_whitelist.txt').map { |k| /\b#{k.strip}\b/i }
+    @whitelist ||= File.readlines('keywords_whitelist.txt').map do |pattern|
+      pattern.strip!
+      if pattern =~ /^"(.*)"$/
+        # double quotes mean don't ignore case
+        /\b#{$1}\b/
+      else
+        /\b#{pattern}\b/i
+      end
+    end
   end
 
   def tweet_activity_count(tweet)

@@ -55,7 +55,7 @@ rake
 refactor\w*
 refinements
 releas\w+
-rest
+"REST"
 restful
 rspec
 \w*rub[iy]\w*
