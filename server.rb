@@ -38,6 +38,10 @@ class Server < Sinatra::Base
         highlighted.gsub!(k, "<mark>\\0</mark>")
       end
 
+      TweetPresenter.keywords_blacklist.each do |k|
+        highlighted.gsub!(k, "<del>\\0</del>")
+      end
+
       highlighted.gsub!(/\b(https?:\/\/\S*[^,.])(\s|$)/, "<a href=\"\\1\">\\1</a>\\2")
 
       highlighted

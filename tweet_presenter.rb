@@ -3,8 +3,8 @@ class TweetPresenter
     new(Twitter::Tweet.new(json))
   end
 
-  def self.keywords_whitelist
-    @whitelist ||= File.readlines('keywords_whitelist.txt').map do |pattern|
+  def self.load_keyword_list(name)
+    File.readlines(name).map do |pattern|
       pattern.strip!
       if pattern =~ /^"(.*)"$/
         # double quotes mean don't ignore case
@@ -13,6 +13,14 @@ class TweetPresenter
         /\b#{pattern}\b/i
       end
     end
+  end
+
+  def self.keywords_whitelist
+    @whitelist ||= load_keyword_list('keywords_whitelist.txt')
+  end
+
+  def self.keywords_blacklist
+    @blacklist ||= load_keyword_list('keywords_blacklist.txt')
   end
 
   def self.user_awesomeness_threshold(user)
@@ -43,15 +51,19 @@ class TweetPresenter
   end
 
   def interesting?
-    matches_keywords? && above_threshold?
+    matches_whitelist? && !matches_blacklist? && above_threshold?
   end
 
   def above_threshold?
     activity_count >= user_awesomeness_threshold
   end
 
-  def matches_keywords?
+  def matches_whitelist?
     self.class.keywords_whitelist.any? { |k| expanded_text =~ k }
+  end
+
+  def matches_blacklist?
+    self.class.keywords_blacklist.any? { |k| expanded_text =~ k }
   end
 
   def activity_count

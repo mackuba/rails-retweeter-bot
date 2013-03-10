@@ -1,0 +1,8 @@
+drones?
+drugs?
+elixir
+obama
+politic\w+
+religi\w+
+war
+xcode
