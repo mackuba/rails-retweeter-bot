@@ -1,3 +1,5 @@
+require_relative 'tweet_presenter'
+
 class Retweeter
   # below this retweet count we don't even check favorites count to save API calls
   MIN_RETWEET_COUNT = 5
@@ -11,13 +13,13 @@ class Retweeter
   def retweet_new_tweets
     puts "Retweeting..."
     tweets = load_home_timeline
-    tweets.select { |t| retweetable_tweet?(t) }.each { |t| retweet(t) }
+    tweets.select(&:retweetable?).each { |t| retweet(t) }
   end
 
   def print_retweetable_tweets
     puts "./bot retweet would retweet these tweets:"
     tweets = load_home_timeline
-    tweets.select { |t| retweetable_tweet?(t) }.each { |t| p t }
+    tweets.select(&:retweetable?).each { |t| p t }
   end
 
   def fetch_all_users_json(options = {})
@@ -61,7 +63,8 @@ class Retweeter
 
   def load_timeline(timeline, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
-    @twitter.send(timeline, *args, { :count => 200, :include_rts => false }.merge(options))
+    tweets = @twitter.send(timeline, *args, { :count => 200, :include_rts => false }.merge(options))
+    tweets.map { |t| TweetPresenter.new(t) }
   end
 
   def with_activity_data(tweets)
@@ -77,49 +80,5 @@ class Retweeter
 
   def retweet(tweet)
     @twitter.retweet(tweet.id)
-  end
-
-  def interesting_tweet?(tweet)
-    matches_keywords?(tweet) && tweet_activity_count(tweet) >= awesomeness_threshold(tweet.user)
-  end
-
-  def retweetable_tweet?(tweet)
-    !tweet.retweeted && interesting_tweet?(tweet)
-  end
-
-  def matches_keywords?(tweet)
-    keywords_whitelist.any? { |k| expanded_text(tweet) =~ k }
-  end
-
-  def expanded_text(tweet)
-    tweet.urls.inject(tweet.text.clone) do |text, entity|
-      text[entity.url] = entity.display_url
-      text
-    end
-  end
-
-  def keywords_whitelist
-    @whitelist ||= File.readlines('keywords_whitelist.txt').map do |pattern|
-      pattern.strip!
-      if pattern =~ /^"(.*)"$/
-        # double quotes mean don't ignore case
-        /\b#{$1}\b/
-      else
-        /\b#{pattern}\b/i
-      end
-    end
-  end
-
-  def tweet_activity_count(tweet)
-    tweet.retweet_count + tweet.favoriters_count.to_i
-  end
-
-  def awesomeness_threshold(user)
-    # this is a completely non-scientific formula calculated by trial and error
-    # in order to set the bar higher for users that get retweeted a lot (@dhh, @rails).
-    # should be around 20 for most people and then raise to ~30 for @rails and 50+ for @dhh.
-    # the idea is that if you have an army of followers, everything you write gets retweeted and favorited
-
-    17.5 + (user.followers_count ** 1.25) * 25 / 1_000_000
   end
 end

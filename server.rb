@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative 'tweet_presenter'
 
 class Server < Sinatra::Base
   enable :logging, :sessions, :static
@@ -14,7 +15,7 @@ class Server < Sinatra::Base
 
     if data
       data.each do |login, tweets_json|
-        @@tweets[login.to_s] = tweets_json.map { |t| Twitter::Tweet.new(t) }
+        @@tweets[login.to_s] = tweets_json.map { |t| TweetPresenter.from_json(t) }
       end
     end
 
@@ -33,7 +34,7 @@ class Server < Sinatra::Base
     def highlight(text)
       highlighted = text.clone
 
-      @@retweeter.keywords_whitelist.each do |k|
+      TweetPresenter.keywords_whitelist.each do |k|
         highlighted.gsub!(k, "<mark>\\0</mark>")
       end
 
@@ -42,20 +43,8 @@ class Server < Sinatra::Base
       highlighted
     end
 
-    def interesting_tweet?(tweet)
-      @@retweeter.interesting_tweet?(tweet)
-    end
-
-    def below_threshold?(tweet)
-      @@retweeter.tweet_activity_count(tweet) < @@retweeter.awesomeness_threshold(tweet.user)
-    end
-
-    def expanded_text(tweet)
-      @@retweeter.expanded_text(tweet)
-    end
-
     def awesomeness_threshold(user)
-      sprintf("%.2f", @@retweeter.awesomeness_threshold(user))
+      sprintf("%.2f", TweetPresenter.user_awesomeness_threshold(user))
     end
   end
 
@@ -76,12 +65,12 @@ class Server < Sinatra::Base
   end
 
   def index(tweets)
-    selected_tweets = tweets.reject { |t| t.text.start_with?('@') && t.retweet_count == 0 }
+    selected_tweets = tweets.reject { |t| t.reply? && t.retweet_count == 0 }
 
     if @sort == 'time'
       selected_tweets.sort_by! { |t| -t.created_at.to_i }
     else
-      selected_tweets.sort_by! { |t| -(t.retweet_count + t.favoriters_count.to_i) }
+      selected_tweets.sort_by! { |t| -t.activity_count }
     end
 
     erb :tweets, :locals => {

@@ -5,7 +5,7 @@
     Awesomeness threshold: <strong><%= awesomeness_threshold(user_data) %></strong> |
   <% end %>
 
-  Matched tweets: <strong><%= tweets.select { |t| interesting_tweet?(t) }.length %>/<%= tweets.length %></strong> |
+  Matched tweets: <strong><%= tweets.select(&:interesting?).length %>/<%= tweets.length %></strong> |
   Sort by: <a href="?sort=time">time</a> / <a href="?sort=score">score</a>
 </p>
 
@@ -13,8 +13,8 @@
 
 <% tweets.each do |t| %>
   <div class="tweet
-    <%= 'matched' if interesting_tweet?(t) %>
-    <%= 'below-threshold' if @sort == 'score' && below_threshold?(t) %>">
+    <%= 'matched' if t.interesting? %>
+    <%= 'below-threshold' unless t.above_threshold? %>">
 
     <h2>
       <a href="http://twitter.com/<%= t.user.screen_name %>">
@@ -23,12 +23,12 @@
       </a>
     </h2>
 
-    <p><%= highlight(expanded_text(t)) %></p>
+    <p><%= highlight(t.expanded_text) %></p>
 
     <p class="info">
-      <%= t.retweet_count + t.favoriters_count.to_i %> reaction(s) =
+      <%= t.activity_count %> reaction(s) =
       <%= t.retweet_count %> retweet(s) +
-      <%= t.attrs[:favoriters_count] || "?" %> favorite(s) /
+      <%= t.favorites_count || "?" %> favorite(s) /
       <%= t.created_at %> /
       <a href="http://twitter.com/<%= t.user.screen_name %>/status/<%= t.id %>">link</a>
       <% if t.retweeted %>
