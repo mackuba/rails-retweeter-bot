@@ -1,6 +1,5 @@
 action ?(mailer|view|controller|pack|dispatch)
 active ?(model|record|support|resource|queue)
-apis?
 assets?
 authenticat\w+
 authlogic
@@ -15,24 +14,26 @@ ci
 class(es)?
 code
 coding
+compromised
 conferences?
 \w+conf
 continuous
 controllers?
+cve
 databases?
 datamapper
+dependency injection
 deploy\w*
 devise
 devs?
 develop\w*
-dhh
 \w+error
 factory[ _]girl
 frameworks?
 gems?
 gil
 git
-hack\w*
+hack(s|ing|ed)?
 heroku
 irb
 (to_|as_)?json
@@ -40,14 +41,18 @@ merb
 metaprogram\w*
 models?
 modules?
+"MRI"
 object-oriented
-oop
+"OOP"
 orm
 passenger
+patch(ed|es|ing)?
 (anti)?patterns?
 perf(ormance)?
+please.*\brt
+pls rt
 presentations?
-program\w*
+programm\w+
 projects?
 queu\w+
 \w*rails\w*
@@ -58,7 +63,9 @@ releas\w+
 "REST"
 restful
 rspec
-\w*rub[iy]\w*
+rubies
+rubinius
+\w*ruby\w*
 rvm
 security
 serializ\w+
@@ -69,7 +76,6 @@ tdd
 test\w*
 (multi)?thread\w*
 (pro ?)?tips?
-views
 vulnerabilit(y|ies)
 webapps?
 yaml
