@@ -1,12 +1,13 @@
 require 'bundler/setup'
 require 'oauth'
+require 'yaml'
 
 config = YAML.load(File.read('config/config.yml'))
 
 oauth = OAuth::Consumer.new(
   config['consumer_key'],
   config['consumer_secret'],
-  :site => 'http://twitter.com/',
+  :site => 'https://twitter.com',
   :request_token_path => '/oauth/request_token',
   :access_token_path => '/oauth/access_token',
   :authorize_path => '/oauth/authorize'
