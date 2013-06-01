@@ -9,7 +9,6 @@ class Retweeter
   end
 
   def retweet_new_tweets
-    puts "Retweeting..."
     tweets = load_home_timeline
     tweets.select(&:retweetable?).each { |t| retweet(t) }
   end
