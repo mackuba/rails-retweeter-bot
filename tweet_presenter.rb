@@ -67,12 +67,12 @@ class TweetPresenter
   end
 
   def activity_count
-    retweet_count + (favorites_count || 0)
+    retweet_count + favorite_count
   end
 
-  def favorites_count
-    count = @tweet.attrs[:favoriters_count]
-    count && count.to_i
+  def favorite_count
+    # overwrite the alias favorite_count -> @attrs[:favoriters_count] from twitter gem
+    @tweet.attrs[:favorite_count]
   end
 
   def user_awesomeness_threshold

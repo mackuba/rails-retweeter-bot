@@ -1,8 +1,6 @@
 require_relative 'tweet_presenter'
 
 class Retweeter
-  # below this retweet count we don't even check favorites count to save API calls
-  MIN_RETWEET_COUNT = 5
   DAY = 86400
   THREE_MONTHS = 90 * DAY
 
@@ -37,7 +35,7 @@ class Retweeter
   end
 
   def load_home_timeline
-    with_activity_data(load_timeline(:home_timeline))
+    load_timeline(:home_timeline)
   end
 
   def load_user_timeline(login, days = nil)
@@ -54,28 +52,15 @@ class Retweeter
       tweets.concat(batch)
     end
 
-    $stderr.print '*'
-    tweets = with_activity_data(tweets.reject { |t| t.created_at < starting_date })
-
     $stderr.puts
-    tweets
+
+    tweets.reject { |t| t.created_at < starting_date }
   end
 
   def load_timeline(timeline, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
     tweets = @twitter.send(timeline, *args, { :count => 200, :include_rts => false }.merge(options))
     tweets.map { |t| TweetPresenter.new(t) }
-  end
-
-  def with_activity_data(tweets)
-    tweets.tap do |tt|
-      selected = tt.select { |t| t.retweet_count > MIN_RETWEET_COUNT }
-      activities = @twitter.statuses_activity(selected.map(&:id))
-
-      selected.zip(activities).each do |t, a|
-        t.attrs.update(a.attrs)
-      end
-    end
   end
 
   def retweet(tweet)

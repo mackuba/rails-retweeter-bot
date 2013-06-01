@@ -28,7 +28,7 @@
     <p class="info">
       <%= t.activity_count %> reaction(s) =
       <%= t.retweet_count %> retweet(s) +
-      <%= t.favorites_count || "?" %> favorite(s) /
+      <%= t.favorite_count %> favorite(s) /
       <%= t.created_at %> /
       <a href="http://twitter.com/<%= t.user.screen_name %>/status/<%= t.id %>">link</a>
       <% if t.retweeted %>
