@@ -28,24 +28,29 @@ devise
 devs?
 develop\w*
 \w+error
+encrypt(ion)?
 factory[ _]girl
 frameworks?
 gems?
 gil
 git
-hack(s|ing|ed)?
+hack(ing|ed|ers?)?
 heroku
+inheritance
 irb
-(to_|as_)?json
+(to_|as_)?json\w*
 merb
 metaprogram\w*
 models?
 modules?
 "MRI"
+objects?
 object-oriented
 "OOP"
+optimi[sz][aei]\w+
 orm
 passenger
+passwords?
 patch(ed|es|ing)?
 (anti)?patterns?
 perf(ormance)?
@@ -60,6 +65,7 @@ rake
 refactor\w*
 refinements
 releas\w+
+repo
 "REST"
 restful
 rspec
@@ -76,6 +82,8 @@ tdd
 test\w*
 (multi)?thread\w*
 (pro ?)?tips?
+validations
+vms?
 vulnerabilit(y|ies)
 webapps?
 yaml
