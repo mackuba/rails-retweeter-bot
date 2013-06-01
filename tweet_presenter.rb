@@ -36,7 +36,7 @@ class TweetPresenter
     @tweet = tweet
   end
 
-  [:id, :attrs, :created_at, :retweeted, :retweet_count, :text, :urls, :user].each do |method|
+  [:id, :attrs, :created_at, :retweet_count, :text, :urls, :user].each do |method|
     define_method(method) do
       @tweet.send(method)
     end
@@ -47,7 +47,7 @@ class TweetPresenter
   end
 
   def retweetable?
-    !retweeted && interesting?
+    !retweeted? && interesting?
   end
 
   def interesting?
@@ -56,6 +56,10 @@ class TweetPresenter
 
   def above_threshold?
     activity_count >= user_awesomeness_threshold
+  end
+
+  def retweeted?
+    @tweet.retweeted
   end
 
   def matches_whitelist?
