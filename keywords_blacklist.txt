@@ -1,4 +1,5 @@
 america\w*
+DEA
 democra\w+
 dick\w*
 drones?
@@ -7,6 +8,7 @@ elixir
 fbi
 feminis\w+
 fuck\w*
+IRS
 journ(alist|o)s?
 law\w*
 obama
