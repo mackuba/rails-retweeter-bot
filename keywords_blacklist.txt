@@ -20,4 +20,5 @@ sex\w*
 soci\w+
 terror\w*
 war
+wom[ae]n
 xcode
