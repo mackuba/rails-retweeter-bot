@@ -1,6 +1,5 @@
 .bundle
 .DS_Store
 config/config.yml
-config/deploy.rb
 *.json
 stuff
