@@ -9,14 +9,16 @@ class Retweeter
   end
 
   def retweet_new_tweets
-    tweets = load_home_timeline
-    tweets.select(&:retweetable?).each { |t| retweet(t) }
+    retweetable_tweets.each { |t| retweet(t) }
   end
 
   def print_retweetable_tweets
     puts "./bot retweet would retweet these tweets:"
-    tweets = load_home_timeline
-    tweets.select(&:retweetable?).each { |t| p t }
+    retweetable_tweets.each { |t| puts "@#{t.user.screen_name}: #{t.expanded_text} (#{t.created_at})" }
+  end
+
+  def retweetable_tweets
+    load_home_timeline.select(&:retweetable?).reverse
   end
 
   def fetch_all_users_json(options = {})
