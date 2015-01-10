@@ -18,6 +18,10 @@ class TweetPresenter
     end
   end
 
+  def self.reload_blacklists
+    @whitelist = @blacklist = nil
+  end
+
   def self.keywords_whitelist
     @whitelist ||= load_keyword_list('keywords_whitelist.txt')
   end

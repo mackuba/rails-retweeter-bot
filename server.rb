@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/reloader'
 require_relative 'tweet_presenter'
 
 class Server < Sinatra::Base
@@ -54,6 +55,8 @@ class Server < Sinatra::Base
 
   before do
     @sort = session[:sort] = params[:sort] || session[:sort] || 'time'
+
+    TweetPresenter.reload_blacklists
   end
 
   get '/' do
