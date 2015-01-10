@@ -1,5 +1,7 @@
 action ?(mailer|view|controller|pack|dispatch)
 active ?(model|record|support|resource|queue)
+architectures?
+arrays?
 assets?
 authenticat\w+
 authlogic
@@ -7,6 +9,7 @@ bdd
 benchmark
 bugs?
 bundler?
+cach(e|ing)
 callbacks?
 capistrano
 capybara
@@ -22,33 +25,43 @@ controllers?
 cve
 databases?
 datamapper
-dependency injection
+dependenc(y|ies)
 deploy\w*
 devise
 devs?
 develop\w*
 \w+error
 encrypt(ion)?
+enumera\w+
 factory[ _]girl
 frameworks?
+function(al|s)?
 gems?
 gil
 git
 hack(ing|ed|ers?)?
+hash(es)?
 heroku
 inheritance
+integration
+introducing
 irb
 (to_|as_)?json\w*
+maintain(ing|ers?)
 merb
 metaprogram\w*
+microservices?
 models?
 modules?
 "MRI"
+(im)?mutab\w+
+nil|null
 objects?
 object-oriented
 "OOP"
 optimi[sz][aei]\w+
-orm
+"ORM"
+"OSS"
 passenger
 passwords?
 patch(ed|es|ing)?
@@ -59,13 +72,15 @@ pls rt
 presentations?
 programm\w+
 projects?
+/PSA\:/
 queu\w+
 \w*rails\w*
 rake
 refactor\w*
 refinements
 releas\w+
-repo
+repo(sitor(y|ies))?
+requests?
 "REST"
 restful
 rspec
@@ -73,6 +88,7 @@ rubies
 rubinius
 \w*ruby\w*
 rvm
+scaling
 security
 serializ\w+
 sinatra

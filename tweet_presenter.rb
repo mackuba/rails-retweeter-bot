@@ -9,6 +9,9 @@ class TweetPresenter
       if pattern =~ /^"(.*)"$/
         # double quotes mean don't ignore case
         /\b#{$1}\b/
+      elsif pattern =~ /^\/(.*)\/$/
+        # slashes mean use pattern directly without wrapping in \b
+        /#{$1}/
       else
         /\b#{pattern}\b/i
       end
