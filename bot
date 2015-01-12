@@ -4,7 +4,6 @@ require 'bundler/setup'
 require 'multi_json'
 require 'twitter'
 require 'yaml'
-require_relative 'server'
 require_relative 'retweeter'
 
 config = YAML.load(File.read('config/config.yml'))
@@ -37,11 +36,13 @@ when 'fetch'
   filename ? File.write(filename, data) : puts(data)
 
 when 'cached'
+  require_relative 'server'
   data = filename ? File.read(filename) : STDIN.read
   json = MultiJson.load(data, :symbolize_keys => true)
   Server.start(retweeter, json)
 
 when 'live'
+  require_relative 'server'
   Server.start(retweeter)
 
 else
