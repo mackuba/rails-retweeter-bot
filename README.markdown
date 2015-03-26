@@ -29,6 +29,16 @@ I've also made the minimum number of retweets+favorites depend on the author - t
 
 The end result is that even though some good tweets are ignored and some off topic tweets get retweeted, the filter works surprisingly well in most cases. It should retweet about 4 tweets per day on average, which sounds like an acceptable number.
 
+##First steps for non ruby pros
+
+First, you need to set up the proper libraries and bundles. You can do this through installing brew, ruby and ruby on rails (you don't actually need this, it's just useful in general), at these three links respectively: http://brew.sh, http://rubyinstaller.org, http://installrails.com. 
+
+All of the commands are commands you have to type into terminal, such as `bundle install`, or `ruby oauth_generator.rb`. By the way, to run a ruby file make sure to put `ruby` before hand. Next, make sure you've set up an app on Twitter to use for this project. 
+
+Lastly, when running ./bot live and ./bot cached data.json you can find those web UIs by typing "localhost:3000" into Safari. 
+
+Good luck! 
+
 ## How to use
 
 Obviously, start with `bundle install`.
