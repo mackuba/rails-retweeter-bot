@@ -67,7 +67,7 @@ These are the words that you DO NOT want included in any of your retweets. You c
 
 The list of words in the text file are the words that you DO want included in your retweets. You can open the document in a text editor and add words that you want included in your retweets or remove any words that were initially in the text file. The whitelist enables your to identify and retweet relevant tweets. 
 
-### tweet_presenter.rb  
+### Change retweet threshold in 'tweet_presenter.rb'  
 
 If you look in 'tweet_presenter.rb'and find the 'user_awesomeness_threshold' function, you can customize the threshold values that determine which retweets get retweeted. The way the threshold currently works is if the number of retweets+the number of favorites on a given tweet is greater than or equal to a threshold (which accounts to the number of followers), then that tweet will be retweeted. 
 For example, the code could look be: ((user.followers_count)/1000). If the number of followers is 6000 and the number of retweets+favorites is 10, then (6000/1000)<10, so that tweet would be exceed the threshold and be retweeted.  
