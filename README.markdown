@@ -21,7 +21,7 @@ What I need is someone that would follow all these people, read all their tweets
 
 ## How it works
 
-The basic idea was that the best tweets get retweeted a lot, so I made the bot select tweets with a high number of retweets. Adding favorites improved things further, because a lot of tweets get many favorites but not many retweeets (especially some useful but not funny tweets from [@ruby_news](https://twitter.com/ruby_news) or [@rubyflow](https://twitter.com/rubyflow) - the funny ones get retweeted the most). I've ignored retweets because almost all of them were off topic.
+The basic idea was that the best tweets get retweeted a lot, so I made the bot select tweets with a high number of retweets. Adding favorites improved things further, because a lot of tweets get many favorites but not many retweets (especially some useful but not funny tweets from [@ruby_news](https://twitter.com/ruby_news) or [@rubyflow](https://twitter.com/rubyflow) - the funny ones get retweeted the most). I've ignored retweets because almost all of them were off topic.
 
 Now I had most of the interesting tweets marked to be retweeted, but most of the top tweets were still not relevant - funny tweets about random things, tweets about politics, current news, Apple, Microsoft, startups, religion, etc. So then I've added a keyword whitelist - I went through the top tweets and I've prepared a list of keywords that would only match the tweets I'd like to see retweeted.
 
@@ -29,7 +29,7 @@ I've also made the minimum number of retweets+favorites depend on the author - t
 
 The end result is that even though some good tweets are ignored and some off topic tweets get retweeted, the filter works surprisingly well in most cases. It should retweet about 4 tweets per day on average, which sounds like an acceptable number.
 
-## How to use
+## How to use 
 
 Obviously, start with `bundle install`.
 
@@ -54,6 +54,23 @@ Starts a web UI that you can use to tweak the filter and see which tweets get ma
 ### ./bot live
 
 Starts a web UI, downloading tweets on demand. This is useful for checking new profiles to see if it's worth adding them to the list.
+
+## How to customize the RetweeterBot
+
+After setting up the app on Twitter, inputting your keys into `config.yml` file and running the ./bots, you can customize your RetweeterBot to focus on specific content you are looking for by changing the keywords and the threshold values for a tweet to be retweeted.
+
+### Edit keywords that will not be retweeted in 'keywords_blacklist.txt'
+
+These are the words that you DO NOT want included in any of your retweets. You can open the document in a text editor and add words that you don't want included or remove any words that were in the initial text file. This enables you to prevent offensive or irrelevent tweets to be retweeted.
+
+### Edit words that will be retweeted in 'keywords_whitelist.txt'
+
+The list of words in the text file are the words that you DO want included in your retweets. You can open the document in a text editor and add words that you want included in your retweets or remove any words that were initially in the text file. The whitelist enables your to identify and retweet relevant tweets. 
+
+### Change retweet threshold in 'tweet_presenter.rb'  
+
+If you look in 'tweet_presenter.rb'and find the 'user_awesomeness_threshold' function, you can customize the threshold values that determine which retweets get retweeted. The way the threshold currently works is if the number of retweets+the number of favorites on a given tweet is greater than or equal to a threshold (which accounts to the number of followers), then that tweet will be retweeted. 
+For example, the code could look be: ((user.followers_count)/1000). If the number of followers is 6000 and the number of retweets+favorites is 10, then (6000/1000)<10, so that tweet would be exceed the threshold and be retweeted.  
 
 ## Credits
 
