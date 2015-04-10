@@ -2,7 +2,9 @@ america\w*
 apple
 arrest\w*
 bank\w*
+capitalis\w+
 civil\w*
+communis\w+
 cops?
 countr(y|ies)
 crimes?
