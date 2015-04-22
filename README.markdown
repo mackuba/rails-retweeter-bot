@@ -77,4 +77,4 @@ The function currently uses a pretty strange expression that was simply created 
 
 ## Credits
 
-Created by [Kuba Suder](http://mackuba.eu) ([@kuba_suder](https://twitter.com/kuba_suder)), licensed under MIT License.
+Created by [Kuba Suder](http://mackuba.eu) ([@kuba_suder](https://twitter.com/kuba_suder)), licensed under VSPL ([Very Simple Public License](https://github.com/mackuba/rails-retweeter-bot/blob/master/VSPL-LICENSE.txt)).
