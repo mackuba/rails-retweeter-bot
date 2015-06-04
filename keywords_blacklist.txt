@@ -47,7 +47,9 @@ soci\w+
 swift
 terror\w*
 tortur\w+
+TSA
 war
+weapon\w*
 wom[ae]n
 xcode
 uber
