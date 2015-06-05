@@ -33,12 +33,13 @@ journ(alis[tm]|o)s?
 law\w*
 (il)?legal\w*
 libert\w+
+nazi\w*
 obama
 officers?
 polic\w+
 politic\w+
 power
-profit\w*
+racist\w*
 religi\w+
 rust
 scala
