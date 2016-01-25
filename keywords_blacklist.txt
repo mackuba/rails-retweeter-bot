@@ -6,7 +6,9 @@ arrest\w*
 bank\w*
 capitalis\w+
 civil\w*
+coc
 communis\w+
+conduct
 cops?
 countr(y|ies)
 crimes?
