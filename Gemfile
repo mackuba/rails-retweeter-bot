@@ -3,7 +3,8 @@ Encoding.default_internal = Encoding.default_external = Encoding::UTF_8
 
 source "http://rubygems.org"
 
-gem 'twitter'
+# TODO: update to 5.x
+gem 'twitter', '~> 4.4'
 gem 'oauth'
 gem 'multi_json'
 
