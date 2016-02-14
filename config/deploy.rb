@@ -1,7 +1,7 @@
 require 'bundler/capistrano'
 
 set :application, "rails_bot"
-set :repository, "git@github.com:jsuder/rails-retweeter-bot.git"
+set :repository, "git@github.com:mackuba/rails-retweeter-bot.git"
 set :scm, :git
 set :keep_releases, 5
 set :use_sudo, false
