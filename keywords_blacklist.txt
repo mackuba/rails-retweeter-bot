@@ -43,6 +43,7 @@ law\w*
 (il)?legal\w*
 liberal\w*
 libert\w+
+(fe)?male
 meritocr\w+
 misog\w*
 nationali\w+
