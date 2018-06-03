@@ -74,6 +74,8 @@ class TweetPresenter
   end
 
   def matches_blacklist?
+    return true if user.screen_name == 'sgrif' && expanded_text.downcase =~ /ruby/   # not *that* Ruby
+
     self.class.keywords_blacklist.any? { |k| expanded_text =~ k }
   end
 
