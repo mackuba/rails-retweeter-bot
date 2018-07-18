@@ -62,7 +62,7 @@ class TweetPresenter
   end
 
   def above_threshold?
-    activity_count >= user_awesomeness_threshold
+    (activity_count >= user_awesomeness_threshold) && retweet_count > 0
   end
 
   def retweeted?
