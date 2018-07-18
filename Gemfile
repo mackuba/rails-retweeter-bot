@@ -9,7 +9,7 @@ gem 'oauth'
 gem 'multi_json'
 
 group :development do
-  gem 'capistrano'
+  gem 'capistrano', '~> 2.13'
   gem 'rvm-capistrano'
   gem 'sinatra'
   gem 'sinatra-reloader'
