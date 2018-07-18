@@ -52,6 +52,7 @@ NSA
 obama
 officers?
 parent\w*
+patriarchy
 phoenix
 polic\w+
 politic\w+
