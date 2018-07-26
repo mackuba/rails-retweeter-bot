@@ -57,6 +57,7 @@ phoenix
 polic\w+
 politic\w+
 power
+priviliged?
 racis\w+
 rape
 regime
