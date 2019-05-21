@@ -8,7 +8,7 @@ set :use_sudo, false
 set :deploy_to, "/var/www/rails_bot"
 set :deploy_via, :remote_cache
 
-server "matterhorn", :app, :web, :db, :primary => true
+server "zermatt", :app, :web, :db, :primary => true
 
 after 'deploy:update_code', 'deploy:symlink_config'
 
