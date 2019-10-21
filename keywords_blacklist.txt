@@ -3,8 +3,10 @@ america\w*
 anarch\w+
 apple
 arrest\w*
+asshole
 bank\w*
 capitalis\w+
+censor\w*
 civil\w*
 coc
 communis\w+
@@ -19,11 +21,12 @@ drones?
 drugs?
 ecto
 elixir(lang)?
+employ\w*
 erlang
 fanatic\w*
 fascis\w+
 fbi
-feminis\w+
+femini\w+
 (de)?fraud\w*
 fuck\w*
 gay
@@ -44,6 +47,7 @@ law\w*
 liberal\w*
 libert\w+
 (fe)?male
+masculin\w+
 meritocr\w+
 misog\w*
 nationali\w+
@@ -74,6 +78,7 @@ terror\w*
 testif\w+
 testim\w+
 tortur\w+
+toxic\w*
 trump
 TSA
 uber

@@ -29,8 +29,8 @@ deploy\w*
 devise
 devs?
 develop\w*
-\w+error
 enumera\w+
+\w+error
 factory[ _]girl
 frameworks?
 function(al|s)?
@@ -82,7 +82,6 @@ refactor\w*
 refinements
 releas\w+
 repo(sitor(y|ies))?
-requests?
 "REST"
 restful
 roda(kase)?
