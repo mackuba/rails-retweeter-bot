@@ -30,6 +30,7 @@ when 'test-retweet'
 when 'fetch'
   json = retweeter.fetch_all_users_json(
     :extra_users => ENV['EXTRA_USERS'] && ENV['EXTRA_USERS'].split(','),
+    :only_users => ENV['ONLY_USERS'] && ENV['ONLY_USERS'].split(','),
     :days => ENV['DAYS'] && ENV['DAYS'].to_i
   )
   data = MultiJson.dump(json)

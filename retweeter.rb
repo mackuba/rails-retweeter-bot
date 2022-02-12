@@ -22,8 +22,13 @@ class Retweeter
   end
 
   def fetch_all_users_json(options = {})
-    users = followed_users
-    users |= options[:extra_users] if options[:extra_users]
+    if options[:only_users]
+      users = options[:only_users]
+    else
+      users = followed_users
+      users |= options[:extra_users] if options[:extra_users]
+    end
+
     days = options[:days]
 
     tweets_json = users.map { |u| load_user_timeline(u, days).map(&:attrs) }
