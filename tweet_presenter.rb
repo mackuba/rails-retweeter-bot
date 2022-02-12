@@ -43,10 +43,14 @@ class TweetPresenter
     @tweet = tweet
   end
 
-  [:id, :attrs, :created_at, :retweet_count, :text, :urls, :user].each do |method|
+  [:id, :attrs, :created_at, :retweet_count, :urls, :user].each do |method|
     define_method(method) do
       @tweet.send(method)
     end
+  end
+
+  def text
+    @tweet.attrs[:full_text] || @tweet.attrs[:text]
   end
 
   def reply?

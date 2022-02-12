@@ -65,7 +65,7 @@ class Retweeter
 
   def load_timeline(timeline, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
-    tweets = @twitter.send(timeline, *args, { :count => 200, :include_rts => false }.merge(options))
+    tweets = @twitter.send(timeline, *args, { count: 200, include_rts: false, tweet_mode: 'extended' }.merge(options))
     tweets.map { |t| TweetPresenter.new(t) }
   end
 
